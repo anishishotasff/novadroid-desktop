@@ -1,301 +1,350 @@
-# NovaDroid Desktop
+<div align="center">
 
-**Control your Android device from your Windows PC**
+# 🤖 NovaDroid Desktop
 
-NovaDroid Desktop is a modern desktop application that allows you to connect an Android phone to a Windows PC and use it through a polished desktop-style interface with real-time screen mirroring, app launching, and device control.
+### Control your Android device from your Windows PC
 
-## Features
+[![Version](https://img.shields.io/badge/version-1.0.0-6366f1?style=for-the-badge)](https://github.com/anishishotasff/novadroid-desktop/releases)
+[![Platform](https://img.shields.io/badge/Windows-10%2F11-0078d4?style=for-the-badge&logo=windows)](https://github.com/anishishotasff/novadroid-desktop/releases)
+[![Flutter](https://img.shields.io/badge/Flutter-3.44.0-54c5f8?style=for-the-badge&logo=flutter)](https://flutter.dev)
+[![License](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](LICENSE.txt)
+[![GitHub Stars](https://img.shields.io/github/stars/anishishotasff/novadroid-desktop?style=for-the-badge&color=f59e0b)](https://github.com/anishishotasff/novadroid-desktop/stargazers)
 
-### ✅ Phase 1 - Complete
-- ✅ Modern desktop UI with dark theme
-- ✅ Full-screen desktop environment
-- ✅ Bottom taskbar with system tray
-- ✅ Device Manager panel
-- ✅ Settings panel with multiple sections
-- ✅ Quick Settings panel
-- ✅ Notifications panel
-- ✅ State management with Provider
-- ✅ Professional theme with Google Fonts
-- ✅ Smooth animations
-- ✅ Error handling framework
-- ✅ Logging system
+<br/>
 
-### 🚧 Upcoming Phases
-- Phase 2: ADB integration, USB/Wireless device connection
-- Phase 3: Screen mirroring with scrcpy
-- Phase 4: Android app launcher and window management
-- Phase 5: Notifications, media controls, clipboard sync
-- Phase 6: Screenshots, file transfer, advanced features
-- Phase 7: Performance optimization and packaging
+**NovaDroid Desktop** is a modern Windows application that lets you connect your Android phone to your PC and control it through a beautiful desktop-style interface — wirelessly or via USB.
 
-## Requirements
+<br/>
 
-### System Requirements
-- Windows 10/11 (64-bit)
-- 4GB RAM minimum (8GB recommended)
-- 500MB free disk space
-- USB port (for USB connection) or WiFi (for wireless connection)
+[⬇️ Download Now](#-download) • [🚀 Quick Start](#-quick-start) • [✨ Features](#-features) • [🛠️ Build from Source](#️-build-from-source) • [🤝 Contributing](#-contributing)
 
-### Development Requirements
-- Flutter SDK 3.44.0 or higher
-- Dart SDK 3.12.0 or higher
-- Visual Studio 2022 with C++ desktop development workload
-- Android SDK Platform Tools (ADB)
-- **Windows Developer Mode enabled** (required for symlink support)
+</div>
 
-## Setup Instructions
+---
 
-### 1. Enable Windows Developer Mode
+## ✨ Features
 
-NovaDroid Desktop requires Developer Mode for plugin symlink support:
+### 🖥️ Modern Desktop Interface
+- Beautiful **dark theme** with glassmorphism effects
+- Smooth animations and hover effects
+- **Bottom taskbar** with system tray
+- Live **clock & date**
+- Professional typography with Google Fonts
 
-1. Open Windows Settings
-2. Go to "Privacy & Security" → "For developers"
-3. Enable "Developer Mode"
-4. Restart your computer if prompted
+### 📱 Device Connection
+| Feature | USB | WiFi |
+|---------|-----|------|
+| Auto device detection | ✅ | ✅ |
+| Manual connect | ✅ | ✅ |
+| Battery monitoring | ✅ | ✅ |
+| Multiple devices | ✅ | ✅ |
+| Auto reconnect | ✅ | ✅ |
 
-Alternatively, run this command:
-```cmd
-start ms-settings:developers
+### 🔌 Connection States
+```
+NO DEVICE  →  DETECTING  →  CONNECTING  →  CONNECTED
+                                        ↘  UNAUTHORIZED
+                                        ↘  ERROR
 ```
 
-### 2. Install Flutter
+### ⚙️ Settings Panel
+- **General** — startup, tray, theme
+- **Connection** — ADB path, timeout, reconnect
+- **Mirroring** — resolution, bitrate, FPS (Phase 3)
+- **Notifications** — enable/disable
+- **Advanced** — debug mode, logs, reset
 
-1. Download Flutter SDK from https://flutter.dev/docs/get-started/install/windows
-2. Extract to a location (e.g., `C:\flutter`)
-3. Add Flutter to your PATH:
-   ```cmd
-   setx PATH "%PATH%;C:\flutter\bin"
-   ```
-4. Verify installation:
-   ```cmd
-   flutter doctor
-   ```
+### 🎛️ Quick Controls
+- WiFi / Bluetooth toggles
+- Brightness & Volume sliders
+- Screen rotation
+- Do Not Disturb
+- Screenshot (Phase 3)
 
-### 3. Install Android Platform Tools
+---
 
-1. Download from https://developer.android.com/studio/releases/platform-tools
-2. Extract to `C:\Users\%USERNAME%\AppData\Local\Android\Sdk\platform-tools\`
-3. Or install Android Studio which includes ADB
+## 📸 Screenshots
 
-### 4. Install Dependencies
+> *Screenshots coming soon — Phase 1 UI is complete and running!*
 
-```cmd
-cd novadroid_desktop
+---
+
+## ⬇️ Download
+
+### 🟢 Latest Release — v1.0.0
+
+| File | Size | Description |
+|------|------|-------------|
+| [`NovaDroid_Desktop_v1.0.0_Portable.zip`](https://github.com/anishishotasff/novadroid-desktop/releases/latest) | ~12 MB | ✅ No install needed — just extract & run |
+
+> **No Flutter required!** The portable version includes everything you need.
+
+---
+
+## 🚀 Quick Start
+
+### Step 1 — Enable USB Debugging on your Android phone
+
+```
+Settings → About Phone → Tap "Build Number" 7 times
+Settings → Developer Options → Enable "USB Debugging"
+```
+
+### Step 2 — Download & Run
+
+1. Download `NovaDroid_Desktop_v1.0.0_Portable.zip`
+2. Extract to any folder
+3. Run `novadroid_desktop.exe`
+
+### Step 3 — Connect your device
+
+**Via USB:**
+- Plug in your USB cable
+- Accept the "Allow USB debugging?" dialog on your phone
+- Your device appears in NovaDroid automatically ✅
+
+**Via WiFi (Android 11+):**
+```
+Settings → Developer Options → Wireless Debugging → Note the IP and Port
+```
+Then in NovaDroid:
+- Click device indicator in taskbar → **Connect Device** → **Wireless**
+- Enter the IP address and port
+- Click **Connect** ✅
+
+---
+
+## 💻 System Requirements
+
+| Requirement | Minimum | Recommended |
+|-------------|---------|-------------|
+| OS | Windows 10 64-bit | Windows 11 64-bit |
+| RAM | 4 GB | 8 GB |
+| Disk Space | 100 MB | 500 MB |
+| Android | 6.0+ | 11.0+ |
+| USB Debugging | Required | Required |
+
+---
+
+## 🗺️ Roadmap
+
+| Phase | Feature | Status |
+|-------|---------|--------|
+| **Phase 1** | Desktop UI, Taskbar, Settings, Device Manager | ✅ **Complete** |
+| **Phase 2** | ADB integration, USB & WiFi connection, Battery | ✅ **Complete** |
+| **Phase 3** | Screen mirroring, Mouse & keyboard input | 🔄 In Progress |
+| **Phase 4** | Android app launcher, Window management | 📋 Planned |
+| **Phase 5** | Notifications, Media controls, Clipboard sync | 📋 Planned |
+| **Phase 6** | File transfer, Screenshots, Performance | 📋 Planned |
+| **Phase 7** | macOS & Linux support | 📋 Planned |
+
+---
+
+## 🛠️ Build from Source
+
+### Prerequisites
+
+- [Flutter SDK 3.44.0+](https://flutter.dev/docs/get-started/install/windows)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/) with **C++ Desktop Development** workload
+- [Android Platform Tools (ADB)](https://developer.android.com/studio/releases/platform-tools)
+- Windows 10/11 with **Developer Mode enabled**
+
+### Enable Developer Mode
+
+```
+Windows Settings → Privacy & Security → For Developers → Developer Mode → ON
+```
+
+### Clone & Run
+
+```bash
+# Clone the repository
+git clone https://github.com/anishishotasff/novadroid-desktop.git
+cd novadroid-desktop
+
+# Install dependencies
 flutter pub get
-```
 
-### 5. Run the Application
-
-```cmd
+# Run in debug mode
 flutter run -d windows
-```
 
-### 6. Build Release Version
-
-```cmd
+# Build release version
 flutter build windows --release
 ```
 
-The built application will be in:
+The release build will be at:
 ```
-novadroid_desktop\build\windows\x64\runner\Release\
+build\windows\x64\runner\Release\novadroid_desktop.exe
 ```
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 ```
 novadroid_desktop/
 ├── lib/
+│   ├── main.dart                        # Entry point
 │   ├── core/
-│   │   ├── adb/              # ADB integration (Phase 2)
-│   │   ├── config/           # App configuration
-│   │   ├── errors/           # Exception classes
-│   │   ├── logging/          # Logging system
-│   │   └── networking/       # Network utilities (Phase 2+)
+│   │   ├── config/app_config.dart       # App configuration
+│   │   ├── errors/app_exception.dart    # Error handling
+│   │   └── logging/app_logger.dart      # Logging system
+│   ├── services/
+│   │   ├── adb_service.dart             # ADB commands & detection
+│   │   └── device_service.dart          # Device management
 │   ├── features/
-│   │   ├── desktop/          # Desktop environment UI
-│   │   ├── device_manager/   # Device connection manager
-│   │   ├── settings/         # Settings panel
-│   │   ├── quick_controls/   # Quick settings panel
-│   │   ├── notifications/    # Notifications panel
-│   │   ├── launcher/         # App launcher (Phase 4)
-│   │   ├── mirroring/        # Screen mirroring (Phase 3)
-│   │   ├── windows/          # Window management (Phase 4)
-│   │   ├── media/            # Media controls (Phase 5)
-│   │   ├── clipboard/        # Clipboard sync (Phase 5)
-│   │   └── screenshots/      # Screenshot manager (Phase 6)
-│   ├── models/               # Data models
-│   ├── services/             # Business logic services
-│   ├── state/                # State management
-│   ├── theme/                # Theme and styling
-│   ├── widgets/              # Reusable widgets
-│   └── main.dart             # Application entry point
-├── windows/                  # Windows-specific configuration
-├── assets/                   # Images, icons, wallpapers
-└── pubspec.yaml             # Dependencies
+│   │   ├── desktop/                     # Main desktop UI
+│   │   ├── device_manager/              # Device connection panel
+│   │   ├── settings/                    # Settings panel
+│   │   ├── quick_controls/              # Quick settings panel
+│   │   ├── notifications/               # Notifications panel
+│   │   ├── mirroring/                   # Screen mirror (Phase 3)
+│   │   ├── launcher/                    # App launcher (Phase 4)
+│   │   └── windows/                     # Window manager (Phase 4)
+│   ├── models/                          # Data models
+│   ├── state/                           # Provider state management
+│   ├── theme/                           # Dark theme & colors
+│   └── widgets/                         # Taskbar & shared widgets
+├── windows/                             # Windows platform config
+├── assets/                              # Images, icons, wallpapers
+├── installer/setup.iss                  # Inno Setup installer script
+└── release/                             # Built portable version
 ```
-
-## Architecture
-
-### State Management
-- **Provider** for reactive state management
-- **AppState**: Global application state
-- **DeviceState**: Device connection and management
-
-### Core Components
-1. **Desktop Screen**: Main desktop environment
-2. **Taskbar**: Bottom taskbar with system tray
-3. **Device Manager**: Device discovery and connection
-4. **Settings**: Application configuration
-5. **Quick Settings**: Quick access controls
-6. **Notifications**: Notification center
-
-### Device States
-- `NoDevice`: No device detected
-- `Detecting`: Scanning for devices
-- `Connecting`: Establishing connection
-- `Unauthorized`: Device needs authorization
-- `Connected`: Successfully connected
-- `Reconnecting`: Attempting reconnection
-- `Disconnected`: Device disconnected
-- `Error`: Connection error
-
-## Configuration
-
-### Default Settings
-- ADB Path: Auto-detected from Android SDK
-- Connection Timeout: 10 seconds
-- Auto Reconnect: Enabled
-- Max Resolution: 1920px
-- Bitrate: 8 Mbps
-- Max FPS: 60
-
-### Customization
-All settings can be modified through the Settings panel:
-1. Click the gear icon in the taskbar
-2. Navigate through different sections
-3. Adjust settings as needed
-
-## Troubleshooting
-
-### ADB Not Found
-If ADB is not detected:
-1. Install Android Platform Tools
-2. Add ADB to system PATH
-3. Or manually set ADB path in Settings → Connection
-
-### Device Not Detected
-1. Enable USB Debugging on your Android device:
-   - Go to Settings → About Phone
-   - Tap "Build Number" 7 times
-   - Go to Settings → Developer Options
-   - Enable "USB Debugging"
-2. Connect via USB cable
-3. Accept the authorization dialog on your phone
-
-### Wireless Connection Issues
-1. Ensure device and PC are on the same WiFi network
-2. Enable "Wireless Debugging" on Android 11+
-3. Use the IP address shown in Wireless Debugging settings
-
-### Build Errors
-If you see "Building with plugins requires symlink support":
-1. Enable Windows Developer Mode (see Setup Instructions)
-2. Restart your computer
-3. Try building again
-
-## Development
-
-### Adding New Features
-1. Create feature folder in `lib/features/`
-2. Implement UI components
-3. Add service logic in `lib/services/`
-4. Update state management if needed
-5. Test thoroughly
-
-### Code Style
-- Follow Dart conventions
-- Use meaningful variable names
-- Add comments for complex logic
-- Keep functions focused and small
-- Use const constructors where possible
-
-### Testing
-```cmd
-flutter test
-```
-
-### Analyzing Code
-```cmd
-flutter analyze
-```
-
-## Roadmap
-
-### Phase 2: Device Connection (Next)
-- [ ] Real ADB detection and initialization
-- [ ] USB device discovery
-- [ ] Wireless ADB connection
-- [ ] Device authorization handling
-- [ ] Connection state management
-- [ ] Error handling for common ADB issues
-
-### Phase 3: Screen Mirroring
-- [ ] scrcpy integration
-- [ ] Real-time screen capture
-- [ ] Mouse and keyboard input
-- [ ] Touch gesture mapping
-- [ ] Screen rotation support
-
-### Phase 4: App Management
-- [ ] Fetch installed apps list
-- [ ] App icons extraction
-- [ ] Launch Android apps
-- [ ] Multi-window system
-- [ ] Window controls (minimize, maximize, close)
-
-### Phase 5: Advanced Features
-- [ ] Android notification bridge
-- [ ] Media player controls
-- [ ] Clipboard synchronization
-- [ ] Screenshot capture
-
-### Phase 6: File & Polish
-- [ ] File transfer (PC ↔ Android)
-- [ ] Drag-and-drop support
-- [ ] Performance optimization
-- [ ] Installer creation
-
-### Phase 7: Cross-Platform
-- [ ] macOS support
-- [ ] Linux support
-
-## Contributing
-
-This is an independent implementation inspired by Android desktop control functionality. Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Implement your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is an independent implementation. Check LICENSE file for details.
-
-## Credits
-
-- Flutter Team for the amazing framework
-- Google Fonts for typography
-- Material Design for UI guidelines
-- scrcpy project for Android screen mirroring inspiration
-
-## Support
-
-For issues, questions, or feature requests, please create an issue in the repository.
 
 ---
 
-**Note**: This application requires proper USB debugging and wireless debugging permissions on your Android device. Never use this application without the device owner's explicit consent.
+## 🔧 Troubleshooting
+
+<details>
+<summary><b>❌ "ADB not found" error</b></summary>
+
+Install Android Platform Tools:
+1. Download from [developer.android.com/studio/releases/platform-tools](https://developer.android.com/studio/releases/platform-tools)
+2. Extract to `C:\Users\%USERNAME%\AppData\Local\Android\Sdk\platform-tools\`
+3. Restart NovaDroid Desktop
+
+</details>
+
+<details>
+<summary><b>❌ Device not detected</b></summary>
+
+1. Make sure **USB Debugging** is enabled on your phone
+2. Accept the "Allow USB debugging?" dialog on your phone
+3. Try a different USB cable or port
+4. Click **Refresh** in the Device Manager panel
+5. Run `adb devices` in terminal to verify ADB works
+
+</details>
+
+<details>
+<summary><b>❌ "Unauthorized" status</b></summary>
+
+Your phone is showing a USB debugging authorization dialog.
+- Unlock your phone and look for the dialog
+- Tap **"Allow"**
+- Check **"Always allow from this computer"**
+
+</details>
+
+<details>
+<summary><b>❌ App won't start</b></summary>
+
+1. Make sure you're on Windows 10/11 **64-bit**
+2. Try running as Administrator
+3. Check logs at: `%APPDATA%\novadroid_desktop\logs\`
+4. Make sure antivirus isn't blocking the app
+
+</details>
+
+<details>
+<summary><b>❌ Build error "requires symlink support"</b></summary>
+
+Enable Windows Developer Mode:
+```
+Settings → Privacy & Security → For Developers → Developer Mode → ON
+```
+Then restart your computer and try building again.
+
+</details>
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how to get started:
+
+1. **Fork** the repository
+2. **Create** a feature branch
+   ```bash
+   git checkout -b feature/screen-mirroring
+   ```
+3. **Commit** your changes
+   ```bash
+   git commit -m "Add screen mirroring support"
+   ```
+4. **Push** to your fork
+   ```bash
+   git push origin feature/screen-mirroring
+   ```
+5. Open a **Pull Request**
+
+### 🎯 Good First Issues
+- Add screen mirroring (Phase 3)
+- Implement notification bridge
+- Add clipboard sync
+- Create file transfer UI
+- Add more themes
+
+See [`TODO.md`](TODO.md) for the full feature roadmap.
+
+---
+
+## 📄 Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| **Flutter 3.44** | UI framework |
+| **Dart 3.12** | Programming language |
+| **Provider** | State management |
+| **ADB** | Android device communication |
+| **window_manager** | Windows title bar & controls |
+| **tray_manager** | System tray integration |
+| **Google Fonts** | Typography (Inter) |
+| **process_run** | ADB process management |
+| **logger** | Structured logging |
+| **shared_preferences** | Settings persistence |
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** — see the [LICENSE.txt](LICENSE.txt) file for details.
+
+---
+
+## ⭐ Support the Project
+
+If you find NovaDroid Desktop useful:
+
+- ⭐ **Star this repository**
+- 🐛 **Report bugs** via [Issues](https://github.com/anishishotasff/novadroid-desktop/issues)
+- 💡 **Suggest features** via [Issues](https://github.com/anishishotasff/novadroid-desktop/issues)
+- 🤝 **Contribute** code or documentation
+- 📢 **Share** with others who might find it useful
+
+---
+
+## 📬 Contact
+
+- **GitHub Issues:** [Report a bug or request a feature](https://github.com/anishishotasff/novadroid-desktop/issues)
+- **Repository:** [github.com/anishishotasff/novadroid-desktop](https://github.com/anishishotasff/novadroid-desktop)
+
+---
+
+<div align="center">
+
+Made with ❤️ using Flutter
+
+**[⬆ Back to Top](#-novadroid-desktop)**
+
+</div>
