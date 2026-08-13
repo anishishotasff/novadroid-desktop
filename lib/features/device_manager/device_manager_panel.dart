@@ -156,7 +156,7 @@ class _DeviceManagerPanelState extends State<DeviceManagerPanel> {
           color: AppTheme.cardColor,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: AppTheme.textDisabled.withOpacity(0.2),
+            color: AppTheme.textDisabled.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -165,7 +165,7 @@ class _DeviceManagerPanelState extends State<DeviceManagerPanel> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppTheme.primaryColor.withOpacity(0.2),
+                color: AppTheme.primaryColor.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, color: AppTheme.primaryColor, size: 32),
@@ -232,7 +232,7 @@ class _DeviceManagerPanelState extends State<DeviceManagerPanel> {
         border: Border.all(
           color: isConnected
               ? AppTheme.successColor
-              : AppTheme.textDisabled.withOpacity(0.2),
+              : AppTheme.textDisabled.withValues(alpha: 0.2),
           width: 2,
         ),
       ),
@@ -242,8 +242,8 @@ class _DeviceManagerPanelState extends State<DeviceManagerPanel> {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: isConnected
-                  ? AppTheme.successColor.withOpacity(0.2)
-                  : AppTheme.backgroundColor.withOpacity(0.5),
+                  ? AppTheme.successColor.withValues(alpha: 0.2)
+                  : AppTheme.backgroundColor.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
@@ -327,7 +327,7 @@ class _DeviceManagerPanelState extends State<DeviceManagerPanel> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.errorColor.withOpacity(0.1),
+        color: AppTheme.errorColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.errorColor, width: 1),
       ),
@@ -447,19 +447,24 @@ class _DeviceManagerPanelState extends State<DeviceManagerPanel> {
 
   void _connectDevice(model.DeviceModel device) async {
     final deviceState = context.read<DeviceState>();
+    final appState = context.read<AppState>();
     deviceState.clearError();
-    
-    try {
-      final connectedDevice = await _deviceService.connectToDevice(device);
+
+    // Immediately mark the device as selected / connected and close the panel.
+    // The full enrichment (battery, android version, etc.) happens in the background.
+    deviceState.setCurrentDeviceFromList(device.id);
+    appState.closeDeviceManager();
+
+    // Background enrichment — fire and forget
+    _deviceService.connectToDevice(device).then((connectedDevice) {
       if (mounted) {
         deviceState.setCurrentDevice(connectedDevice);
-        context.read<AppState>().closeDeviceManager();
       }
-    } catch (e) {
+    }).catchError((e) {
       if (mounted) {
         deviceState.setError(_getErrorMessage(e));
       }
-    }
+    });
   }
 
   void _disconnectDevice(model.DeviceModel device) async {

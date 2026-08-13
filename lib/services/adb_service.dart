@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:convert';
-import 'package:process_run/shell.dart';
 import '../core/logging/app_logger.dart';
 import '../core/errors/app_exception.dart';
 import '../models/device_model.dart';
@@ -8,7 +6,6 @@ import '../models/device_model.dart';
 class AdbService {
   static AdbService? _instance;
   String? _adbPath;
-  final Shell _shell = Shell();
 
   static AdbService get instance {
     _instance ??= AdbService._();
@@ -410,4 +407,147 @@ class AdbService {
 
   /// Check if ADB is available
   bool get isAvailable => _adbPath != null;
+
+  // ──────────────────────────────────────────────────────────────
+  //  App management helpers
+  // ──────────────────────────────────────────────────────────────
+
+  /// Get list of user-installed packages on the device.
+  /// Returns package names such as ["com.example.app", ...].
+  Future<List<String>> getUserPackages(String deviceId) async {
+    _ensureInitialized();
+    try {
+      final result = await Process.run(
+        _adbPath!,
+        ['-s', deviceId, 'shell', 'pm', 'list', 'packages', '-3'],
+      );
+      if (result.exitCode != 0) {
+        throw AdbException(
+          message: 'Failed to list packages',
+          details: result.stderr.toString(),
+        );
+      }
+      final lines = result.stdout.toString().split('\n');
+      final packages = <String>[];
+      for (final line in lines) {
+        final trimmed = line.trim();
+        if (trimmed.startsWith('package:')) {
+          packages.add(trimmed.substring('package:'.length));
+        }
+      }
+      return packages;
+    } catch (e) {
+      if (e is AdbException) rethrow;
+      throw AdbException(
+        message: 'Failed to get user packages',
+        originalError: e,
+      );
+    }
+  }
+
+  /// Get the human-readable label for a package.
+  /// Returns the package name itself when no label can be resolved.
+  Future<String> getAppLabel(String deviceId, String packageName) async {
+    _ensureInitialized();
+    try {
+      // Try to pull the app label from dumpsys output
+      final result = await Process.run(
+        _adbPath!,
+        ['-s', deviceId, 'shell', 'dumpsys', 'package', packageName],
+      );
+      if (result.exitCode == 0) {
+        final output = result.stdout.toString();
+        final labelMatch = RegExp(r'label=([^\s]+)').firstMatch(output);
+        if (labelMatch != null) {
+          final label = labelMatch.group(1)!.replaceAll('"', '');
+          if (label.isNotEmpty && !label.startsWith('0x')) {
+            return label;
+          }
+        }
+      }
+      // Fallback: derive a readable name from the package id
+      final parts = packageName.split('.');
+      if (parts.isNotEmpty) {
+        return parts.last
+            .replaceAll('_', ' ')
+            .split(' ')
+            .map((w) => w.isNotEmpty
+                ? '${w[0].toUpperCase()}${w.substring(1)}'
+                : w)
+            .join(' ');
+      }
+      return packageName;
+    } catch (e) {
+      AppLogger.warning('Failed to get label for $packageName: $e');
+      // Return a readable fallback
+      final parts = packageName.split('.');
+      return parts.isNotEmpty ? parts.last : packageName;
+    }
+  }
+
+  /// Launch an app on the device using the monkey runner approach.
+  Future<void> launchApp(String deviceId, String packageName) async {
+    _ensureInitialized();
+    try {
+      final result = await Process.run(
+        _adbPath!,
+        [
+          '-s', deviceId,
+          'shell', 'monkey',
+          '-p', packageName,
+          '-c', 'android.intent.category.LAUNCHER',
+          '1',
+        ],
+      );
+      if (result.exitCode != 0) {
+        throw AdbException(
+          message: 'Failed to launch app $packageName',
+          details: result.stderr.toString(),
+        );
+      }
+      AppLogger.info('Launched app: $packageName');
+    } catch (e) {
+      if (e is AdbException) rethrow;
+      throw AdbException(
+        message: 'Failed to launch app',
+        originalError: e,
+      );
+    }
+  }
+
+  /// Take a screenshot on the device, pull it to [savePath], and return
+  /// the local file path on success (or null on failure).
+  Future<String?> takeScreenshot(String deviceId, String savePath) async {
+    _ensureInitialized();
+    const remotePath = '/sdcard/novadroid_screenshot.png';
+    try {
+      // Capture
+      var result = await Process.run(
+        _adbPath!,
+        ['-s', deviceId, 'shell', 'screencap', '-p', remotePath],
+      );
+      if (result.exitCode != 0) {
+        AppLogger.warning('screencap failed: ${result.stderr}');
+        return null;
+      }
+      // Pull
+      result = await Process.run(
+        _adbPath!,
+        ['-s', deviceId, 'pull', remotePath, savePath],
+      );
+      if (result.exitCode != 0) {
+        AppLogger.warning('adb pull failed: ${result.stderr}');
+        return null;
+      }
+      // Clean up
+      await Process.run(
+        _adbPath!,
+        ['-s', deviceId, 'shell', 'rm', remotePath],
+      );
+      return savePath;
+    } catch (e) {
+      AppLogger.warning('takeScreenshot failed: $e');
+      return null;
+    }
+  }
 }

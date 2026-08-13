@@ -15,10 +15,10 @@ class Taskbar extends StatelessWidget {
     return Container(
       height: AppConfig.taskbarHeight,
       decoration: BoxDecoration(
-        color: AppTheme.surfaceColor.withOpacity(0.95),
+        color: AppTheme.surfaceColor.withValues(alpha: 0.95),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black.withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
@@ -72,10 +72,10 @@ class Taskbar extends StatelessWidget {
       width: 300,
       height: 40,
       decoration: BoxDecoration(
-        color: AppTheme.backgroundColor.withOpacity(0.5),
+        color: AppTheme.backgroundColor.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppTheme.textDisabled.withOpacity(0.2),
+          color: AppTheme.textDisabled.withValues(alpha: 0.2),
           width: 1,
         ),
       ),
@@ -262,7 +262,7 @@ class Taskbar extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: isActive
-              ? AppTheme.primaryColor.withOpacity(0.2)
+              ? AppTheme.primaryColor.withValues(alpha: 0.2)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),

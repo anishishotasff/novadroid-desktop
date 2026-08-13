@@ -20,6 +20,28 @@ class DeviceState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Pick a device from the available list by id, mark it as connected,
+  /// and set it as the current device immediately (enrichment happens later).
+  void setCurrentDeviceFromList(String deviceId) {
+    final index = _availableDevices.indexWhere((d) => d.id == deviceId);
+    if (index >= 0) {
+      _currentDevice = _availableDevices[index].copyWith(
+        state: model.DeviceState.connected,
+      );
+    } else {
+      // Fallback: create a minimal device entry
+      _currentDevice = model.DeviceModel(
+        id: deviceId,
+        state: model.DeviceState.connected,
+        connectionType: deviceId.contains(':')
+            ? model.DeviceConnectionType.wireless
+            : model.DeviceConnectionType.usb,
+      );
+    }
+    _errorMessage = null;
+    notifyListeners();
+  }
+
   void updateDeviceState(model.DeviceState newState) {
     if (_currentDevice != null) {
       _currentDevice = _currentDevice!.copyWith(state: newState);

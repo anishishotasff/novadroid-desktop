@@ -36,7 +36,7 @@ class AppTheme {
   // Shadows
   static List<BoxShadow> get cardShadow => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.3),
+      color: Colors.black.withValues(alpha: 0.3),
       blurRadius: 20,
       offset: const Offset(0, 10),
     ),
@@ -44,7 +44,7 @@ class AppTheme {
 
   static List<BoxShadow> get elevatedShadow => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.5),
+      color: Colors.black.withValues(alpha: 0.5),
       blurRadius: 30,
       offset: const Offset(0, 15),
     ),
@@ -176,7 +176,7 @@ class AppTheme {
       ),
       
       dividerTheme: DividerThemeData(
-        color: textDisabled.withOpacity(0.2),
+        color: textDisabled.withValues(alpha: 0.2),
         thickness: 1,
       ),
       
