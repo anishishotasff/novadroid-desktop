@@ -1,0 +1,37 @@
+# Commands to upload NovaDroid Desktop to GitHub
+
+# 1. First, create a new repository on GitHub:
+#    Go to: https://github.com/new
+#    Name: novadroid-desktop
+#    Description: Android Desktop - Control your Android device from Windows PC
+#    Visibility: Public
+#    DO NOT initialize with README
+
+# 2. After creating the repository, run these commands:
+
+cd "E:\android dexxx\novadroid_desktop"
+
+git branch -M main
+
+git remote add origin https://github.com/YOUR_USERNAME/novadroid-desktop.git
+
+git push -u origin main
+
+# Replace YOUR_USERNAME with your actual GitHub username (probably: anishdebnath15)
+
+# Example:
+# git remote add origin https://github.com/anishdebnath15/novadroid-desktop.git
+# git push -u origin main
+
+# You may be asked for GitHub credentials. Use:
+# - Username: your GitHub username
+# - Password: Personal Access Token (not your password)
+#
+# To create a Personal Access Token:
+# 1. Go to GitHub → Settings → Developer settings → Personal access tokens
+# 2. Generate new token (classic)
+# 3. Select "repo" scope
+# 4. Copy the token and use it as password
+
+# After successful push, your repository will be live at:
+# https://github.com/YOUR_USERNAME/novadroid-desktop
